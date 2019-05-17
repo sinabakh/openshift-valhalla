@@ -49,7 +49,7 @@ if [ ! -z $(grep "build_timezones_done" "tasks_log") ]; then
 else
     echo "Building timezones..."
     cp $COMMAND_ROOT/alias_* ./
-    rm timezones-with-oceans.shapefile.zip
+    rm -f timezones-with-oceans.shapefile.zip
     valhalla_build_timezones valhalla.json
     echo "build_timezones_done" >> tasks_log
 fi
