@@ -30,7 +30,7 @@ RUN cd /usr/lib/x86_64-linux-gnu/ && cp libboost_*.1.65.1 libprotobuf-lite.so.10
 	libxml2.so.2 libfreexl.so.1 libproj.so.12 libgeos_c.so.1 libkrb5.so.3 libkrb5support.so.0 \
 	libk5crypto.so.3 libsasl2.so.2 libgssapi.so.3 libicuuc.so.60 libgeos-3.6.2.so libheimntlm.so.0 \
 	libkrb5.so.26 libasn1.so.8 libhcrypto.so.4 libroken.so.18 libicudata.so.60 libwind.so.0 \
-	libheimbase.so.1 libhx509.so.5 \
+	libheimbase.so.1 libhx509.so.5 mod_spatialite.so \
 	/home/valuser/libs1
 
 RUN cd /lib/x86_64-linux-gnu/ && cp libkeyutils.so.1  \
@@ -49,8 +49,9 @@ COPY scripts/ /home/valuser
 
 RUN mkdir /data && chgrp -R 0 /data && chmod -R g=u /data && \
 	chmod +x /home/valuser/build_data.sh && ldconfig && \
-	apt-get update && apt-get install -y python wget spatialite-bin jq unzip
-
+	apt-get update && apt-get install -y python wget spatialite-bin jq unzip && \
+	ln -s /usr/lib/x86_64-linux-gnu/mod_spatialite.so /usr/lib/x86_64-linux-gnu/mod_spatialite && \
+	rm -rf /var/lib/apt/lists/*
 
 USER valuser
 
