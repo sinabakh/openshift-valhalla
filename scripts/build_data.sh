@@ -58,7 +58,6 @@ if [ ! -z $(grep "build_tiles_done" "tasks_log") ]; then
     echo "Tiles are already built."
 else
     echo "Building tiles..."
-    rm -rf valhalla_tiles/*
     valhalla_build_tiles -c valhalla.json iran-latest.osm.pbf
     echo "build_tiles_done" >> tasks_log
 fi
