@@ -66,7 +66,13 @@ if [ ! -z $(grep "build_tar_done" "tasks_log") ]; then
     echo "Tar is already built."
 else
     echo "Building tar..."
+    set +e
     find valhalla_tiles | sort -n | tar cf valhalla_tiles.tar --warning=no-file-changed --no-recursion -T -
+    exitcode=$?
+    if [ "$exitcode" != "1" ] && [ "$exitcode" != "0" ]; then
+        exit $exitcode
+    fi
+    set -e
     echo "build_tar_done" >> tasks_log
 fi
 
